@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.loginController;
 import dao.userDao;
 import helpers.buttonHelper;
 import helpers.inputHelper;
@@ -30,9 +31,7 @@ public class loginFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel signPanel;
 	private JTextField username;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JPasswordField passwordField;
+	private JPasswordField password;
 
 	/**
 	 * Launch the application.
@@ -56,13 +55,15 @@ public class loginFrame extends JFrame {
 	public loginFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 550);
+		setLocationRelativeTo(null); 
+		setResizable(false);
 		signPanel = new JPanel();
 		signPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(signPanel);
 		signPanel.setLayout(new CardLayout(0, 0));
 		
 		JPanel signinPanel = new JPanel();
-		signPanel.add(signinPanel, "name_5270677404800");
+		signPanel.add(signinPanel, "SignIn");
 		signinPanel.setLayout(null);
 						
 		JLabel lblLogin = new JLabel("LOGIN");
@@ -86,6 +87,7 @@ public class loginFrame extends JFrame {
 		roundPanel usernamePanel = new roundPanel(20);
 		usernamePanel.setBounds(281, 147, 395, 39);
 		usernamePanel.setLayout(null);
+		usernamePanel.setBorder(new roundBorder(20, new Color(107,147,114), 2));
 		usernamePanel.setBackground(Color.WHITE); 
 		signinPanel.add(usernamePanel);
 		
@@ -100,14 +102,15 @@ public class loginFrame extends JFrame {
 		passwordRoundPanel.setBounds(281, 210, 395, 39);
 		passwordRoundPanel.setLayout(null);
 		passwordRoundPanel.setBackground(Color.WHITE);
+		passwordRoundPanel.setBorder(new roundBorder(20, new Color(107,147,114), 2));
 		signinPanel.add(passwordRoundPanel);
 			
-		passwordField = new JPasswordField();
-		passwordField.setBounds(5, 19, 344, 19);
-		passwordField.setBorder(null);
-		passwordField.setEchoChar('•');
-		passwordRoundPanel.add(passwordField);
-		inputHelper.hideLabelOnType(passwordField, lblPassword);
+		password = new JPasswordField();
+		password.setBounds(10, 17, 344, 19);
+		password.setBorder(null);
+		password.setEchoChar('•');
+		passwordRoundPanel.add(password);
+		inputHelper.hideLabelOnType(password, lblPassword);
 
 		
 		JButton btnshow = new JButton("");
@@ -120,10 +123,10 @@ public class loginFrame extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				if (isShowing) {
-					passwordField.setEchoChar('•');
+					password.setEchoChar('•');
 					buttonHelper.apply(btnshow, "/img/eye-slash-regular-full.png", 20, 20);
 				}else {
-					passwordField.setEchoChar((char)0);
+					password.setEchoChar((char)0);
 					buttonHelper.apply(btnshow, "/img/eye-regular-full.png", 20, 20);
 				}
 				
@@ -145,24 +148,8 @@ public class loginFrame extends JFrame {
 		btnLogin.setFont(new Font("Poppins", Font.BOLD, 20));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String user = username.getText();
-				String pass = String.valueOf(passwordField.getPassword());
-
-				userDao dao = new userDao();
-				user loggedUser = dao.validateLogin(user, pass);
-
-				if (loggedUser == null) {
-				    JOptionPane.showMessageDialog(null, "Invalid username or password!");
-				    return;
-				}
-					 
-		
-
-				// save session
-				session.setUser(loggedUser);
-				mainFrame mf = new mainFrame(loggedUser.getUsername());
-				dispose();
-				mf.setVisible(true);
+				loginController ctrl = new loginController();
+				ctrl.loginF(loginFrame.this, username, password);
 			}
 		});
 		loginButtonPanel.add(btnLogin);

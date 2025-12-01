@@ -15,6 +15,7 @@ public class sidebarController {
 
 	  public void showDashboard() {
 	      layout.show(mainPanel, "dashboard");
+	      
 	  }
 
 	  public void showProducts() {
@@ -23,6 +24,9 @@ public class sidebarController {
 
 	  public void showReports() {
 	      layout.show(mainPanel, "report");
+	  }
+	  public void showSales() {
+	      layout.show(mainPanel, "sales");
 	  }
 
 	  public void showStaffAccounts() {

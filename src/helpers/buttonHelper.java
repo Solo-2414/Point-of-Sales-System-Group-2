@@ -18,8 +18,7 @@ public class buttonHelper {
 	        btn.setForeground(Color.WHITE);
 	        btn.setFont(new Font("Poppins Medium", Font.PLAIN, 13));
 
-	        // Load your icon
+	        // Load icon
 	        btn.setIcon(helpers.iconHelper.load(iconPath, x, y));
 	    }
-
 }

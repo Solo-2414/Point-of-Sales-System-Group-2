@@ -33,6 +33,10 @@ public class roundtxtfPanel extends roundPanel {
         return textField;
     }
     
+    public void roundPanels() {
+    	
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

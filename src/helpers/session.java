@@ -3,7 +3,7 @@ package helpers;
 import model.user;
 
 public class session {
-	 private static user currentUser = null;
+	 public static user currentUser = null;
 
 	    public static void setUser(user user) {
 	        currentUser = user;
